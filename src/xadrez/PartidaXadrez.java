@@ -44,8 +44,12 @@ public class PartidaXadrez {
 	}
 	
 	private void validarBuscaPosicao(Posicao posicao) {
+		
 		if (!tabuleiro.pecaExiste(posicao)) {
 			throw new XadrezException("Nao existe uma peca nesta posicao");
+		}
+		if (!tabuleiro.peca(posicao).existeAlgumMovimento()) {
+			throw new XadrezException("Nao existe movimentos possiveis para a peca de origem");
 		}
 	}
 
