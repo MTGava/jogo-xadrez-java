@@ -57,10 +57,16 @@ public class UI {
 		printPecasCapturadas(capturadas);
 		System.out.println();
 		System.out.println("Turno: " + partidaXadrez.getTurno());
-		System.out.println("Aguardando jogador: " + partidaXadrez.getJogadorAtual());
-		if (partidaXadrez.getXeque()) {
-			System.out.println("XEQUE!");
+		if (!partidaXadrez.getXequeMate()) {
+			System.out.println("Aguardando jogador: " + partidaXadrez.getJogadorAtual());
+			if (partidaXadrez.getXeque()) {
+				System.out.println("XEQUE!");
+			}
+		} else {
+			System.out.println("XEQUE-MATE!");
+			System.out.println("Vencedor: " + partidaXadrez.getJogadorAtual());
 		}
+		
 	}
 
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
@@ -101,9 +107,8 @@ public class UI {
 		System.out.print(" ");
 	}
 
-	private static void printPecasCapturadas(List<PecaXadrez> capturadas) throws NullPointerException {
-		List<PecaXadrez> branco = capturadas.stream().filter(x -> x.getCor() == Cor.BRANCO)
-				.collect(Collectors.toList());
+	private static void printPecasCapturadas(List<PecaXadrez> capturadas) {
+		List<PecaXadrez> branco = capturadas.stream().filter(x -> x.getCor() == Cor.BRANCO).collect(Collectors.toList());
 		List<PecaXadrez> preto = capturadas.stream().filter(x -> x.getCor() == Cor.PRETO).collect(Collectors.toList());
 		System.out.println("Pecas capturadas:");
 		System.out.print("Brancas: ");
