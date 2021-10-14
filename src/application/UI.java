@@ -34,11 +34,12 @@ public class UI {
 	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
 	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+	// https://stackoverflow.com/questions/2979383/java-clear-the-console
 	public static void limparTela() {
 		System.out.println("\033[H\033[2J");
 		System.out.flush();
 	}
-	
+
 	public static PosicaoXadrez lerPosicaoXadrez(Scanner sc) {
 		try {
 			String s = sc.nextLine();
@@ -49,7 +50,7 @@ public class UI {
 			throw new InputMismatchException("Erro ao ler a PosicaoXadrez. Valores validos: a1 - h8.");
 		}
 	}
-	
+
 	public static void printPartida(PartidaXadrez partidaXadrez, List<PecaXadrez> capturadas) {
 		printTabuleiro(partidaXadrez.getPecas());
 		System.out.println();
@@ -57,6 +58,9 @@ public class UI {
 		System.out.println();
 		System.out.println("Turno: " + partidaXadrez.getTurno());
 		System.out.println("Aguardando jogador: " + partidaXadrez.getJogadorAtual());
+		if (partidaXadrez.getXeque()) {
+			System.out.println("XEQUE!");
+		}
 	}
 
 	public static void printTabuleiro(PecaXadrez[][] pecas) {
@@ -96,9 +100,10 @@ public class UI {
 		}
 		System.out.print(" ");
 	}
-	
-	private static void printPecasCapturadas(List<PecaXadrez> capturadas) {
-		List<PecaXadrez> branco = capturadas.stream().filter(x -> x.getCor() == Cor.BRANCO).collect(Collectors.toList());
+
+	private static void printPecasCapturadas(List<PecaXadrez> capturadas) throws NullPointerException {
+		List<PecaXadrez> branco = capturadas.stream().filter(x -> x.getCor() == Cor.BRANCO)
+				.collect(Collectors.toList());
 		List<PecaXadrez> preto = capturadas.stream().filter(x -> x.getCor() == Cor.PRETO).collect(Collectors.toList());
 		System.out.println("Pecas capturadas:");
 		System.out.print("Brancas: ");
