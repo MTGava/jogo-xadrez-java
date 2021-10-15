@@ -41,8 +41,8 @@ public class Programa {
 				}
 				
 				if (partidaXadrez.getPromocao() != null) {
-					System.out.println("Qual peca sera promovida? (B/C/T/Q): ");
-					String tipo = sc.nextLine();
+					System.out.print("Qual peca sera promovida? (B/C/T/Q): ");
+					String tipo = sc.nextLine().toUpperCase();
 					partidaXadrez.substituirPecaPromovida(tipo);
 				}
 			} catch (XadrezException e) {
